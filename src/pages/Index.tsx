@@ -9,11 +9,15 @@ import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import NoiseOverlay from '@/components/NoiseOverlay';
 import CustomCursor from '@/components/CustomCursor';
+import GlobalBackground from '@/components/GlobalBackground';
 
 const Index = () => {
   return (
     <SmoothScroll>
-      <div className="relative min-h-screen bg-background">
+      <div className="relative min-h-screen">
+        {/* Fixed Global Background */}
+        <GlobalBackground />
+        
         {/* Custom Cursor */}
         <CustomCursor />
         
@@ -24,7 +28,7 @@ const Index = () => {
         <Navigation />
         
         {/* Main Content */}
-        <main>
+        <main className="relative z-10">
           {/* Hero Section */}
           <HeroSection />
           

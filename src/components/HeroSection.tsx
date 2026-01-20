@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import heroImage from '@/assets/hero-landscape.jpg';
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -9,55 +8,15 @@ const HeroSection = () => {
     offset: ["start start", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
   const textY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
 
   return (
     <section 
       ref={containerRef}
-      className="relative h-screen overflow-hidden"
+      className="relative h-screen"
       id="hero"
     >
-      {/* Background Image with Parallax */}
-      <motion.div 
-        style={{ y, scale }}
-        className="absolute inset-0 z-0"
-      >
-        <img 
-          src={heroImage}
-          alt="Cinematic landscape"
-          className="w-full h-full object-cover"
-        />
-        {/* Dark Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/40" />
-      </motion.div>
-
-      {/* Ambient Particles */}
-      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-foreground/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
-
       {/* Content */}
       <motion.div 
         style={{ y: textY, opacity }}

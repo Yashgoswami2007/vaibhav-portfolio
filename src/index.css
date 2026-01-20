@@ -2,95 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Vaibhav Mishra - AAA Game Artist Portfolio
+   Cinematic Dark Theme - 2026 Ready */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Dark Palette - Cinematic Blacks */
+    --background: 240 10% 4%;
+    --foreground: 210 20% 92%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card & Surface Layers */
+    --card: 240 10% 6%;
+    --card-foreground: 210 20% 92%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 240 10% 8%;
+    --popover-foreground: 210 20% 92%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Steel Blue Accent */
+    --primary: 215 60% 55%;
+    --primary-foreground: 210 20% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Graphite */
+    --secondary: 220 15% 12%;
+    --secondary-foreground: 210 15% 75%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted - Deep Charcoal */
+    --muted: 220 12% 14%;
+    --muted-foreground: 215 15% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Warm Amber */
+    --accent: 38 90% 55%;
+    --accent-foreground: 38 100% 10%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Utility Colors */
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 15% 15%;
+    --input: 220 15% 18%;
+    --ring: 215 60% 55%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    /* Sidebar */
+    --sidebar-background: 240 10% 6%;
+    --sidebar-foreground: 210 15% 75%;
+    --sidebar-primary: 215 60% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 220 15% 12%;
+    --sidebar-accent-foreground: 210 15% 75%;
+    --sidebar-border: 220 15% 15%;
+    --sidebar-ring: 215 60% 55%;
   }
 }
 
@@ -99,7 +63,126 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    @apply font-medium tracking-tight;
+  }
+
+  ::selection {
+    background: hsl(215 60% 55% / 0.3);
+    color: hsl(210 20% 98%);
+  }
+}
+
+@layer components {
+  /* Hero Typography */
+  .hero-title {
+    @apply text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter;
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 0.9;
+  }
+
+  .hero-subtitle {
+    @apply text-lg md:text-xl font-light tracking-wide uppercase;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.3em;
+  }
+
+  /* Section Headers */
+  .section-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-light tracking-tight;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .section-label {
+    @apply text-xs font-medium tracking-widest uppercase text-muted-foreground;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.2em;
+  }
+
+  /* Cinematic Button */
+  .btn-cinematic {
+    @apply relative px-8 py-4 bg-transparent border border-foreground/20 text-foreground font-medium tracking-wider uppercase text-sm overflow-hidden transition-all duration-500;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .btn-cinematic::before {
+    content: '';
+    @apply absolute inset-0 bg-foreground transform -translate-x-full transition-transform duration-500;
+  }
+
+  .btn-cinematic:hover::before {
+    @apply translate-x-0;
+  }
+
+  .btn-cinematic:hover {
+    @apply text-background;
+  }
+
+  .btn-cinematic span {
+    @apply relative z-10;
+  }
+
+  /* Accent Button */
+  .btn-accent {
+    @apply relative px-8 py-4 bg-accent text-accent-foreground font-medium tracking-wider uppercase text-sm overflow-hidden transition-all duration-500;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .btn-accent:hover {
+    @apply bg-accent/90;
+    box-shadow: 0 0 40px hsl(38 90% 55% / 0.2);
+  }
+
+  /* Glass Effect */
+  .glass {
+    @apply backdrop-blur-xl bg-card/50 border border-border/50;
+  }
+
+  /* Project Card */
+  .project-card {
+    @apply relative overflow-hidden cursor-pointer;
+  }
+
+  .project-card img {
+    @apply w-full h-full object-cover transition-transform duration-700;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-card:hover img {
+    @apply scale-105;
+  }
+
+  /* Skill Badge */
+  .skill-badge {
+    @apply px-4 py-2 border border-border/50 text-sm font-light tracking-wide text-muted-foreground transition-all duration-300;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .skill-badge:hover {
+    @apply border-accent text-accent bg-accent/5;
+  }
+}
+
+@layer utilities {
+  /* Text Gradient */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(38 90% 55%) 0%, hsl(28 85% 50%) 100%);
+  }
+
+  .text-gradient-steel {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(215 60% 55%) 0%, hsl(225 50% 45%) 100%);
   }
 }

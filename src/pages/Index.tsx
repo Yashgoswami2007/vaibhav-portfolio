@@ -1,13 +1,53 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Navigation from '@/components/Navigation';
+import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
+import ProjectsSection from '@/components/ProjectsSection';
+import SkillsSection from '@/components/SkillsSection';
+import PhilosophySection from '@/components/PhilosophySection';
+import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
+import SmoothScroll from '@/components/SmoothScroll';
+import NoiseOverlay from '@/components/NoiseOverlay';
+import CustomCursor from '@/components/CustomCursor';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <SmoothScroll>
+      <div className="relative min-h-screen bg-background">
+        {/* Custom Cursor */}
+        <CustomCursor />
+        
+        {/* Noise Texture Overlay */}
+        <NoiseOverlay />
+        
+        {/* Navigation */}
+        <Navigation />
+        
+        {/* Main Content */}
+        <main>
+          {/* Hero Section */}
+          <HeroSection />
+          
+          {/* About Section */}
+          <AboutSection />
+          
+          {/* Featured Projects */}
+          <ProjectsSection />
+          
+          {/* Skills Section */}
+          <SkillsSection />
+          
+          {/* Philosophy Section */}
+          <PhilosophySection />
+          
+          {/* Contact Section */}
+          <ContactSection />
+        </main>
+        
+        {/* Footer */}
+        <Footer />
       </div>
-    </div>
+    </SmoothScroll>
   );
 };
 

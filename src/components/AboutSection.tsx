@@ -82,19 +82,23 @@ const AboutSection = () => {
               className="grid grid-cols-3 gap-8 mt-12 pt-12 border-t border-border"
             >
               {stats.map((stat, index) => (
-                <div key={stat.label}>
+                <motion.div 
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.5 + index * 0.15 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="group cursor-default"
+                >
                   <motion.span
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                    className="block font-display text-3xl lg:text-4xl font-light text-foreground"
+                    className="block font-display text-3xl lg:text-4xl font-light text-foreground group-hover:text-accent transition-colors duration-300"
                   >
                     {stat.value}
                   </motion.span>
                   <span className="block mt-2 text-sm text-muted-foreground font-light">
                     {stat.label}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>

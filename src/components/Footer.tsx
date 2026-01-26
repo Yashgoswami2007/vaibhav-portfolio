@@ -4,14 +4,16 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative py-12 px-6 lg:px-12 border-t border-border">
+    <footer className="relative py-12 px-6 lg:px-12 border-t border-border backdrop-blur-md bg-background/30">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Logo / Name */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            whileHover={{ scale: 1.05 }}
             className="flex items-center gap-3"
           >
             <span className="font-display text-xl font-medium tracking-tight text-foreground">
@@ -25,9 +27,10 @@ const Footer = () => {
 
           {/* Copyright */}
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="text-sm text-muted-foreground font-light"
           >
             © {currentYear} All rights reserved
@@ -36,10 +39,11 @@ const Footer = () => {
           {/* Back to Top */}
           <motion.a
             href="#hero"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            whileHover={{ y: -3 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            whileHover={{ y: -5, scale: 1.05 }}
             className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 font-display tracking-wider"
           >
             <span>Back to top</span>

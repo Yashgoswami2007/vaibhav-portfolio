@@ -29,12 +29,15 @@ const SkillsSection = () => {
     <section 
       ref={sectionRef}
       id="skills" 
-      className="relative py-32 lg:py-48 px-6 lg:px-12 bg-card"
+      className="relative py-32 lg:py-48 px-6 lg:px-12"
     >
-      {/* Background Gradient */}
+      {/* Blurred Transparent Background */}
+      <div className="absolute inset-0 backdrop-blur-xl bg-background/30 border-y border-border/30" />
+      
+      {/* Gradient Edges */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-background to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-background/80 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-background/80 to-transparent" />
       </div>
 
       <div className="container mx-auto relative z-10">
@@ -104,11 +107,11 @@ const SkillsSection = () => {
               {tools.map((tool, index) => (
                 <motion.span
                   key={tool}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.05 }}
-                  whileHover={{ scale: 1.05, borderColor: 'hsl(38 90% 55%)' }}
-                  className="skill-badge"
+                  initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+                  animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.3 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ scale: 1.1, y: -5, borderColor: 'hsl(38 90% 55%)' }}
+                  className="skill-badge cursor-default"
                 >
                   {tool}
                 </motion.span>
@@ -117,31 +120,37 @@ const SkillsSection = () => {
 
             {/* Additional Capabilities */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-12 p-6 border border-border rounded-lg"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ scale: 1.02 }}
+              className="mt-12 p-6 border border-border/50 rounded-lg backdrop-blur-sm bg-background/20"
             >
               <h4 className="font-display text-lg font-light text-foreground mb-4">
                 Additional Capabilities
               </h4>
-              <ul className="space-y-2 text-sm text-muted-foreground font-light">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                  Photorealistic Rendering
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                  Cinematic Lighting & Composition
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                  Real-time Visualization
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                  Asset Optimization for Games
-                </li>
+              <ul className="space-y-3 text-sm text-muted-foreground font-light">
+                {[
+                  'Photorealistic Rendering',
+                  'Cinematic Lighting & Composition',
+                  'Real-time Visualization',
+                  'Asset Optimization for Games'
+                ].map((item, index) => (
+                  <motion.li 
+                    key={item}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                    whileHover={{ x: 5, color: 'hsl(38 90% 55%)' }}
+                    className="flex items-center gap-2 cursor-default transition-colors duration-300"
+                  >
+                    <motion.span 
+                      className="w-1.5 h-1.5 bg-accent rounded-full"
+                      whileHover={{ scale: 1.5 }}
+                    />
+                    {item}
+                  </motion.li>
+                ))}
               </ul>
             </motion.div>
           </div>

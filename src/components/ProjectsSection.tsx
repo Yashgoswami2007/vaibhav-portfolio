@@ -74,12 +74,14 @@ const ProjectsSection = () => {
           {projects.map((project, index) => (
             <motion.article
               key={project.id}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+              initial={{ opacity: 0, y: 80, rotateX: 10 }}
+              animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+              transition={{ duration: 1, delay: 0.2 + index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -10, transition: { duration: 0.4 } }}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
               className="project-card relative aspect-[16/10] rounded-lg overflow-hidden"
+              style={{ perspective: 1000 }}
             >
               {/* Image */}
               <motion.img

@@ -86,10 +86,11 @@ const ContactSection = () => {
                   href={link.href}
                   target={link.href.startsWith('http') ? '_blank' : undefined}
                   rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                  className="group block p-6 border border-border rounded-lg hover:border-accent/50 transition-colors duration-300"
+                  initial={{ opacity: 0, x: 50, scale: 0.95 }}
+                  animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
+                  transition={{ duration: 0.7, delay: 0.2 + index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ scale: 1.02, x: 10 }}
+                  className="group block p-6 border border-border rounded-lg hover:border-accent/50 hover:bg-accent/5 transition-colors duration-300"
                 >
                   <span className="block text-xs font-display tracking-widest uppercase text-muted-foreground mb-2">
                     {link.label}

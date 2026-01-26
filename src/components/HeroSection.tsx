@@ -22,11 +22,11 @@ const HeroSection = () => {
         style={{ y: textY, opacity }}
         className="relative z-20 h-full flex flex-col justify-end pb-24 lg:pb-32 px-6 lg:px-12"
       >
-        <div className="container mx-auto">
+        <div className="container mx-auto flex flex-col items-end text-right">
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="hero-subtitle text-muted-foreground mb-4"
           >
@@ -36,8 +36,8 @@ const HeroSection = () => {
           {/* Main Title */}
           <div className="overflow-hidden">
             <motion.h1
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="hero-title text-foreground"
             >
@@ -46,8 +46,8 @@ const HeroSection = () => {
           </div>
           <div className="overflow-hidden">
             <motion.h1
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="hero-title text-foreground"
             >
@@ -57,8 +57,8 @@ const HeroSection = () => {
 
           {/* Tagline */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="mt-8 max-w-lg text-lg text-muted-foreground font-light leading-relaxed"
           >
@@ -67,8 +67,8 @@ const HeroSection = () => {
 
           {/* CTA */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
             className="mt-10 flex gap-4"
           >

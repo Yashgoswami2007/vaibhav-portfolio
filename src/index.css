@@ -9,52 +9,52 @@
 
 @layer base {
   :root {
-    /* Core Palette - Forest/Mountain Inspired */
-    --background: 150 20% 8%;
-    --foreground: 60 10% 95%;
+    /* Core Dark Palette - Cinematic Blacks */
+    --background: 240 10% 4%;
+    --foreground: 210 20% 92%;
 
-    /* Card & Surface Layers - Dark with green undertone */
-    --card: 150 15% 10%;
-    --card-foreground: 60 10% 95%;
+    /* Card & Surface Layers */
+    --card: 240 10% 6%;
+    --card-foreground: 210 20% 92%;
 
-    --popover: 150 15% 12%;
-    --popover-foreground: 60 10% 95%;
+    --popover: 240 10% 8%;
+    --popover-foreground: 210 20% 92%;
 
-    /* Primary - Deep Forest Green */
-    --primary: 145 45% 35%;
-    --primary-foreground: 60 10% 98%;
+    /* Primary - Steel Blue Accent */
+    --primary: 215 60% 55%;
+    --primary-foreground: 210 20% 98%;
 
-    /* Secondary - Mountain Stone */
-    --secondary: 200 10% 18%;
-    --secondary-foreground: 60 10% 80%;
+    /* Secondary - Graphite */
+    --secondary: 220 15% 12%;
+    --secondary-foreground: 210 15% 75%;
 
-    /* Muted - Misty Gray-Green */
-    --muted: 160 10% 15%;
-    --muted-foreground: 150 10% 55%;
+    /* Muted - Deep Charcoal */
+    --muted: 220 12% 14%;
+    --muted-foreground: 215 15% 50%;
 
-    /* Accent - Warm Earth/Bark */
-    --accent: 28 50% 45%;
-    --accent-foreground: 28 80% 10%;
+    /* Accent - Warm Amber */
+    --accent: 38 90% 55%;
+    --accent-foreground: 38 100% 10%;
 
     /* Utility Colors */
     --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 150 10% 20%;
-    --input: 150 10% 22%;
-    --ring: 145 45% 35%;
+    --border: 220 15% 15%;
+    --input: 220 15% 18%;
+    --ring: 215 60% 55%;
 
     --radius: 0.5rem;
 
     /* Sidebar */
-    --sidebar-background: 150 15% 10%;
-    --sidebar-foreground: 60 10% 80%;
-    --sidebar-primary: 145 45% 35%;
+    --sidebar-background: 240 10% 6%;
+    --sidebar-foreground: 210 15% 75%;
+    --sidebar-primary: 215 60% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 150 10% 15%;
-    --sidebar-accent-foreground: 60 10% 80%;
-    --sidebar-border: 150 10% 20%;
-    --sidebar-ring: 145 45% 35%;
+    --sidebar-accent: 220 15% 12%;
+    --sidebar-accent-foreground: 210 15% 75%;
+    --sidebar-border: 220 15% 15%;
+    --sidebar-ring: 215 60% 55%;
   }
 }
 
@@ -175,14 +175,14 @@
 }
 
 @layer utilities {
-  /* Text Gradient - Forest Gold */
+  /* Text Gradient */
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(45 80% 55%) 0%, hsl(28 60% 45%) 100%);
+    background-image: linear-gradient(135deg, hsl(38 90% 55%) 0%, hsl(28 85% 50%) 100%);
   }
 
-  .text-gradient-forest {
+  .text-gradient-steel {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(145 45% 40%) 0%, hsl(160 35% 30%) 100%);
+    background-image: linear-gradient(135deg, hsl(215 60% 55%) 0%, hsl(225 50% 45%) 100%);
   }
 }

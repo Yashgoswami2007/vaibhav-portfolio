@@ -20,9 +20,10 @@ const GlobalBackground = () => {
         />
       </motion.div>
 
-      {/* Dark Overlay - stronger gradient for content readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/70 to-background/95" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/40" />
+      {/* Dark Overlay - stronger gradient for content readability with forest tones */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/98" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/40 to-background/60" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-transparent to-transparent" />
 
       {/* Ambient Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

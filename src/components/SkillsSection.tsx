@@ -31,14 +31,8 @@ const SkillsSection = () => {
       id="skills" 
       className="relative py-32 lg:py-48 px-6 lg:px-12"
     >
-      {/* Blurred Transparent Background */}
-      <div className="absolute inset-0 backdrop-blur-xl bg-background/30 border-y border-border/30" />
-      
-      {/* Gradient Edges */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-background/80 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-background/80 to-transparent" />
-      </div>
+      {/* Backdrop Blur Background */}
+      <div className="absolute inset-0 backdrop-blur-xl bg-background/40" />
 
       <div className="container mx-auto relative z-10">
         {/* Section Header */}

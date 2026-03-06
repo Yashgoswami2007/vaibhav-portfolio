@@ -5,16 +5,10 @@ const AboutSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const stats = [
-    { value: '5+', label: 'Years Experience' },
-    { value: '50+', label: 'Projects Completed' },
-    { value: '15+', label: 'Happy Clients' },
-  ];
-
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="about" 
+      id="about"
       className="relative py-32 lg:py-48 px-6 lg:px-12 overflow-hidden"
     >
       {/* Background Elements */}
@@ -55,52 +49,32 @@ const AboutSection = () => {
           </div>
 
           {/* Right Column - Content */}
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-lg text-muted-foreground leading-relaxed font-light"
-            >
-              I'm a 3D artist specializing in hard surface modeling, environment design, and cinematic visualization. My work spans from hyper-detailed vehicles to atmospheric game environments, all crafted with the precision and visual fidelity expected in AAA productions.
-            </motion.p>
+          <div className="relative">
+            <div className="relative z-10 p-8 lg:p-10 rounded-2xl bg-background/40 backdrop-blur-2xl border border-white/5 shadow-2xl overflow-hidden">
+              {/* Subtle interior glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent pointer-events-none" />
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-lg text-muted-foreground leading-relaxed font-light mt-6"
-            >
-              Working primarily in Blender and DaVinci Resolve, I bring concepts to life with meticulous attention to detail, realistic materials, and cinematic lighting that tells a story.
-            </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-lg text-foreground/90 leading-relaxed font-light relative z-10"
+              >
+                I'm a 3D artist dedicated to crafting immersive digital experiences through advanced environment creation and hyper-realistic product visualization. My process bridges the gap between imagination and reality, utilizing the power of Blender for detailed modeling and DaVinci Resolve for cinematic color grading and final output.
+              </motion.p>
 
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="grid grid-cols-3 gap-8 mt-12 pt-12 border-t border-border"
-            >
-              {stats.map((stat, index) => (
-                <motion.div 
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                  transition={{ duration: 0.6, delay: 0.5 + index * 0.15 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="group cursor-default"
-                >
-                  <motion.span
-                    className="block font-display text-3xl lg:text-4xl font-light text-foreground group-hover:text-accent transition-colors duration-300"
-                  >
-                    {stat.value}
-                  </motion.span>
-                  <span className="block mt-2 text-sm text-muted-foreground font-light">
-                    {stat.label}
-                  </span>
-                </motion.div>
-              ))}
-            </motion.div>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-lg text-foreground/80 leading-relaxed font-light mt-6 relative z-10"
+              >
+                Whether it's designing expansive architectural landscapes or showcasing the intricate details of a premium product, my focus is always on visual storytelling, realistic material physics, and atmospheric lighting that resonates with the audience.
+              </motion.p>
+            </div>
+
+            {/* Decorative background glow for the blur box */}
+            <div className="absolute -inset-4 bg-accent/5 blur-3xl rounded-full pointer-events-none opacity-50" />
           </div>
         </div>
       </div>

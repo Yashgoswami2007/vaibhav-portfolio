@@ -4,18 +4,18 @@ import { motion, useInView } from 'framer-motion';
 const contactLinks = [
   {
     label: 'Email',
-    value: 'hello@vaibhavmishra.com',
-    href: 'mailto:hello@vaibhavmishra.com',
+    value: 'Vaibhavblends@gmail.com',
+    href: 'mailto:Vaibhavblends@gmail.com',
   },
   {
     label: 'LinkedIn',
-    value: 'linkedin.com/in/vaibhavmishra',
-    href: 'https://linkedin.com',
+    value: 'vaibhav-mishra-10978a362',
+    href: 'https://www.linkedin.com/in/vaibhav-mishra-10978a362/',
   },
   {
     label: 'Instagram',
-    value: '@vaibhav.3dart',
-    href: 'https://instagram.com',
+    value: '_v.bhv_',
+    href: 'https://instagram.com/_v.bhv_/',
   },
 ];
 
@@ -24,57 +24,67 @@ const ContactSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="contact" 
+      id="contact"
       className="relative py-32 lg:py-48 px-6 lg:px-12"
     >
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left Column */}
-          <div>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="section-label text-accent"
-            >
-              Get in Touch
-            </motion.span>
+          <div className="relative">
+            <div className="relative z-10 p-8 lg:p-12 rounded-2xl bg-background/40 backdrop-blur-xl border border-white/5 shadow-2xl overflow-hidden">
+              {/* Subtle interior glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent pointer-events-none" />
 
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="section-title mt-4 text-foreground"
-            >
-              Let's create
-              <br />
-              <span className="text-muted-foreground">something epic</span>
-            </motion.h2>
+              <div className="relative z-10">
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6 }}
+                  className="section-label text-accent"
+                >
+                  Get in Touch
+                </motion.span>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mt-6 text-lg text-muted-foreground font-light max-w-md"
-            >
-              Available for AAA studio roles, freelance projects, and professional collaborations. Let's bring your vision to life.
-            </motion.p>
+                <motion.h2
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                  className="section-title mt-4 text-foreground text-4xl lg:text-5xl"
+                >
+                  Let's create
+                  <br />
+                  <span className="text-muted-foreground">something epic</span>
+                </motion.h2>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="mt-8"
-            >
-              <a 
-                href="mailto:hello@vaibhavmishra.com"
-                className="btn-accent inline-block"
-              >
-                Start a Conversation
-              </a>
-            </motion.div>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="mt-6 text-lg text-foreground/80 font-light max-w-sm"
+                >
+                  Open for high-end product visualization, environment design, and cinematic collaborations. Let's take your project to its visual peak.
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="mt-10"
+                >
+                  <a
+                    href="mailto:Vaibhavblends@gmail.com"
+                    className="btn-accent inline-block px-8 py-4 rounded-full text-foreground font-medium tracking-wide shadow-lg shadow-accent/20 hover:shadow-accent/40 transition-all duration-300"
+                  >
+                    Start a Conversation
+                  </a>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Decorative background glow */}
+            <div className="absolute -inset-6 bg-accent/5 blur-[80px] rounded-full pointer-events-none opacity-40" />
           </div>
 
           {/* Right Column - Contact Links */}

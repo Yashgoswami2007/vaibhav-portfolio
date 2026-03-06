@@ -1,40 +1,91 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import projectVehicle from '@/assets/project-vehicle.jpg';
-import projectEnvironment from '@/assets/project-environment.jpg';
-import projectCharacter from '@/assets/project-character.jpg';
+
+// Import Videos
+import abandonedHouseVid from '@/assets/abandoned house.mp4';
+import headphoneVid from '@/assets/Headphone.mp4';
+import primeVid from '@/assets/Prime.mp4';
+import redbullVid from '@/assets/Redbull.mp4';
+import spaceVid from '@/assets/space reel.mp4';
+import visualizerVid from '@/assets/visualizer.mp4';
+
+// Import fallback images (keeping existing ones as posters where they might fit, or using placeholder)
 import projectProduct from '@/assets/project-product.jpg';
+import projectEnvironment from '@/assets/project-environment.jpg';
 
 const projects = [
   {
     id: 1,
-    title: 'VANGUARD MK-VII',
-    category: 'Hard Surface / Vehicle',
-    image: projectVehicle,
-    description: 'Next-gen combat vehicle design for sci-fi universe',
+    title: 'THE FORGOTTEN MANOR',
+    category: 'Environment Design',
+    video: abandonedHouseVid,
+    poster: projectEnvironment,
+    description: 'Explore the cinematic beauty of decaying industrial architecture.',
   },
   {
     id: 2,
-    title: 'ABANDONED FOUNDRY',
-    category: 'Environment Design',
-    image: projectEnvironment,
-    description: 'Post-apocalyptic industrial environment',
+    title: 'SONIC PRECISION',
+    category: 'Product Visualization',
+    video: headphoneVid,
+    poster: projectProduct,
+    description: 'High-fidelity audio equipment rendered with hyper-realistic detail.',
   },
   {
     id: 3,
-    title: 'SENTINEL ARMOR',
-    category: 'Character Design',
-    image: projectCharacter,
-    description: 'Futuristic power armor concept',
+    title: 'PRIMAL POWER',
+    category: 'Brand Identity',
+    video: primeVid,
+    description: 'Dynamic brand motion showcasing the energy of Prime Hydration.',
   },
   {
     id: 4,
-    title: 'CHRONOS WATCH',
-    category: 'Product Visualization',
-    image: projectProduct,
-    description: 'Premium product render showcase',
+    title: 'UNLEASH THE LIMIT',
+    category: 'Commercial VFX',
+    video: redbullVid,
+    description: 'High-speed motion graphics and fluid simulations for Red Bull.',
+  },
+  {
+    id: 5,
+    title: 'NEBULAR FRONTIER',
+    category: 'Sci-Fi Cinematic',
+    video: spaceVid,
+    description: 'A cosmic journey through the depths of distant star systems.',
+  },
+  {
+    id: 6,
+    title: 'RHYTHM & LIGHT',
+    category: 'Motion Graphics',
+    video: visualizerVid,
+    description: 'Interactive audio-reactive visuals for immersive experiences.',
   },
 ];
+
+const ProjectVideo = ({ src, isHovered, poster }: { src: string; isHovered: boolean; poster?: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isHovered) {
+        videoRef.current.play().catch((err) => console.log("Video play failed:", err));
+      } else {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+    }
+  }, [isHovered]);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      poster={poster}
+      muted
+      loop
+      playsInline
+      className="absolute inset-0 w-full h-full object-cover"
+    />
+  );
+};
 
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -42,9 +93,9 @@ const ProjectsSection = () => {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="work" 
+      id="work"
       className="relative py-32 lg:py-48 px-6 lg:px-12 overflow-hidden"
     >
       {/* Section Header */}
@@ -80,25 +131,21 @@ const ProjectsSection = () => {
               whileHover={{ y: -10, transition: { duration: 0.4 } }}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
-              className="project-card relative aspect-[16/10] rounded-lg overflow-hidden"
+              className="project-card relative aspect-[16/10] rounded-lg overflow-hidden group"
               style={{ perspective: 1000 }}
             >
-              {/* Image */}
-              <motion.img
-                src={project.image}
-                alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover"
-                animate={{
-                  scale: hoveredProject === project.id ? 1.05 : 1,
-                }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              {/* Video Component */}
+              <ProjectVideo
+                src={project.video}
+                isHovered={hoveredProject === project.id}
+                poster={project.poster}
               />
 
               {/* Overlay */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"
                 animate={{
-                  opacity: hoveredProject === project.id ? 0.9 : 0.7,
+                  opacity: hoveredProject === project.id ? 0.8 : 0.6,
                 }}
                 transition={{ duration: 0.3 }}
               />
@@ -183,3 +230,4 @@ const ProjectsSection = () => {
 };
 
 export default ProjectsSection;
+

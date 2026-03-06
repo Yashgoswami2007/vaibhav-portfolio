@@ -12,7 +12,7 @@ import gameVid from '@/assets/game.mp4';
 import loopVid from '@/assets/Loop.mp4';
 
 // Import posters (confirmed mapping)
-import housePoster from '@/assets/Screenshot 2026-03-06 143319.png';
+import housePoster from '@/assets/forgotten-manor-poster.png';
 import headphonePoster from '@/assets/Screenshot 2026-03-06 143345.png';
 import primePoster from '@/assets/Screenshot 2026-03-06 143410.png';
 import redbullPoster from '@/assets/Screenshot 2026-03-06 143355.png';

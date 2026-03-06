@@ -3,10 +3,10 @@ import { motion, useInView } from 'framer-motion';
 
 const skills = [
   { name: 'Hard Surface Modeling', level: 95 },
+  { name: 'Product Visualizer', level: 97 },
   { name: 'Environment Design', level: 90 },
   { name: 'Character Creation', level: 85 },
   { name: 'Vehicle Design', level: 92 },
-  { name: 'Product Visualization', level: 88 },
   { name: 'Animation & VFX', level: 80 },
   { name: 'Sculpting', level: 85 },
   { name: 'Texturing & Materials', level: 90 },
@@ -26,9 +26,9 @@ const SkillsSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="skills" 
+      id="skills"
       className="relative py-32 lg:py-48 px-6 lg:px-12"
     >
       {/* Backdrop Blur Background */}
@@ -130,7 +130,7 @@ const SkillsSection = () => {
                   'Real-time Visualization',
                   'Asset Optimization for Games'
                 ].map((item, index) => (
-                  <motion.li 
+                  <motion.li
                     key={item}
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -138,7 +138,7 @@ const SkillsSection = () => {
                     whileHover={{ x: 5, color: 'hsl(38 90% 55%)' }}
                     className="flex items-center gap-2 cursor-default transition-colors duration-300"
                   >
-                    <motion.span 
+                    <motion.span
                       className="w-1.5 h-1.5 bg-accent rounded-full"
                       whileHover={{ scale: 1.5 }}
                     />

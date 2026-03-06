@@ -12,13 +12,13 @@ const HeroSection = () => {
   const textY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="relative h-screen"
       id="hero"
     >
       {/* Content */}
-      <motion.div 
+      <motion.div
         style={{ y: textY, opacity }}
         className="relative z-20 h-full flex flex-col justify-end pb-24 lg:pb-32 px-6 lg:px-12"
       >
@@ -28,7 +28,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="hero-subtitle text-muted-foreground mb-4"
+            className="hero-subtitle text-white mb-4"
           >
             3D Artist & Environment Designer
           </motion.p>
@@ -60,7 +60,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-8 max-w-lg text-lg text-muted-foreground font-light leading-relaxed"
+            className="mt-8 max-w-lg text-lg text-white font-light leading-relaxed"
           >
             Crafting cinematic worlds and immersive experiences for AAA games and beyond.
           </motion.p>

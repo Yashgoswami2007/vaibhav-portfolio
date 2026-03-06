@@ -8,6 +8,8 @@ import primeVid from '@/assets/Prime.mp4';
 import redbullVid from '@/assets/Redbull.mp4';
 import spaceVid from '@/assets/space reel.mp4';
 import visualizerVid from '@/assets/visualizer.mp4';
+import gameVid from '@/assets/game.mp4';
+import loopVid from '@/assets/Loop.mp4';
 
 // Import posters (confirmed mapping)
 import housePoster from '@/assets/Screenshot 2026-03-06 143319.png';
@@ -65,6 +67,20 @@ const projects = [
     video: visualizerVid,
     poster: visualizerPoster,
     description: 'Audio-reactive abstract visuals designed for immersive digital experiences.',
+  },
+  {
+    id: 7,
+    title: 'CORE OMNI-CONSOLE',
+    category: 'Product Visualizer',
+    video: gameVid,
+    description: 'A revolutionary next-gen gaming console conceptualized with sleek aesthetics and advanced cooling architecture.',
+  },
+  {
+    id: 8,
+    title: 'KINETIC RESONANCE',
+    category: 'Motion Study',
+    video: loopVid,
+    description: 'Four synchronized spheres navigating through a dense, viscous medium in a perpetual orbital dance.',
   },
 ];
 
@@ -195,30 +211,7 @@ const ProjectsSection = () => {
                   )}
                 </AnimatePresence>
 
-                {/* View Project Link */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: hoveredProject === project.id ? 1 : 0,
-                    y: hoveredProject === project.id ? 0 : 20,
-                  }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
-                  className="mt-4"
-                >
-                  <span className="inline-flex items-center gap-2 text-sm font-display tracking-wider text-foreground group cursor-pointer">
-                    View Project
-                    <motion.svg
-                      animate={{ x: hoveredProject === project.id ? 5 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="w-4 h-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </motion.svg>
-                  </span>
-                </motion.div>
+
               </div>
 
               {/* Border Highlight on Hover */}

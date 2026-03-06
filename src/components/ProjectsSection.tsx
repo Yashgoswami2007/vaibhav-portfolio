@@ -18,6 +18,8 @@ import primePoster from '@/assets/Screenshot 2026-03-06 143410.png';
 import redbullPoster from '@/assets/Screenshot 2026-03-06 143355.png';
 import spacePoster from '@/assets/project.png';
 import visualizerPoster from '@/assets/project-environment.png';
+import kineticPoster from '@/assets/kinetic-resonance-poster.png';
+import consolePoster from '@/assets/core-omni-console-poster.png';
 
 const projects = [
   {
@@ -73,6 +75,7 @@ const projects = [
     title: 'CORE OMNI-CONSOLE',
     category: 'Product Visualizer',
     video: gameVid,
+    poster: consolePoster,
     description: 'A revolutionary next-gen gaming console conceptualized with sleek aesthetics and advanced cooling architecture.',
   },
   {
@@ -80,6 +83,7 @@ const projects = [
     title: 'KINETIC RESONANCE',
     category: 'Motion Study',
     video: loopVid,
+    poster: kineticPoster,
     description: 'Four synchronized spheres navigating through a dense, viscous medium in a perpetual orbital dance.',
   },
 ];

@@ -27,7 +27,7 @@ const projects = [
     title: 'THE FORGOTTEN MANOR',
     category: 'Environment Design',
     video: abandonedHouseVid,
-    poster: housePoster,
+    poster: visualizerPoster,
     description: 'Cinematic exploration of industrial decay and atmospheric storytelling.',
   },
   {
@@ -67,6 +67,7 @@ const projects = [
     title: 'RHYTHM & SPECTRA',
     category: 'Motion Graphics',
     video: visualizerVid,
+    poster: housePoster,
     description: 'Audio-reactive abstract visuals designed for immersive digital experiences.',
   },
   {

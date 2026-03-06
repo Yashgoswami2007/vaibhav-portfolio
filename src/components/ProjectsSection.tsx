@@ -9,9 +9,13 @@ import redbullVid from '@/assets/Redbull.mp4';
 import spaceVid from '@/assets/space reel.mp4';
 import visualizerVid from '@/assets/visualizer.mp4';
 
-// Import fallback images (keeping existing ones as posters where they might fit, or using placeholder)
-import projectProduct from '@/assets/project-product.jpg';
-import projectEnvironment from '@/assets/project-environment.jpg';
+// Import posters (confirmed mapping)
+import housePoster from '@/assets/Screenshot 2026-03-06 143319.png';
+import headphonePoster from '@/assets/Screenshot 2026-03-06 143345.png';
+import primePoster from '@/assets/Screenshot 2026-03-06 143410.png';
+import redbullPoster from '@/assets/Screenshot 2026-03-06 143355.png';
+import spacePoster from '@/assets/project.png';
+import visualizerPoster from '@/assets/project-environment.png';
 
 const projects = [
   {
@@ -19,44 +23,48 @@ const projects = [
     title: 'THE FORGOTTEN MANOR',
     category: 'Environment Design',
     video: abandonedHouseVid,
-    poster: projectEnvironment,
-    description: 'Explore the cinematic beauty of decaying industrial architecture.',
+    poster: housePoster,
+    description: 'Cinematic exploration of industrial decay and atmospheric storytelling.',
   },
   {
     id: 2,
     title: 'SONIC PRECISION',
     category: 'Product Visualization',
     video: headphoneVid,
-    poster: projectProduct,
-    description: 'High-fidelity audio equipment rendered with hyper-realistic detail.',
+    poster: headphonePoster,
+    description: 'High-fidelity audio equipment rendered with hyper-realistic detail and lighting.',
   },
   {
     id: 3,
-    title: 'PRIMAL POWER',
+    title: 'PRIMAL ENERGY',
     category: 'Brand Identity',
     video: primeVid,
-    description: 'Dynamic brand motion showcasing the energy of Prime Hydration.',
+    poster: primePoster,
+    description: 'Dynamic motion graphics showcasing the high-energy spirit of Prime.',
   },
   {
     id: 4,
-    title: 'UNLEASH THE LIMIT',
+    title: 'BEYOND THE LIMIT',
     category: 'Commercial VFX',
     video: redbullVid,
-    description: 'High-speed motion graphics and fluid simulations for Red Bull.',
+    poster: redbullPoster,
+    description: 'High-speed fluid simulations and technical VFX for extreme sports visuals.',
   },
   {
     id: 5,
     title: 'NEBULAR FRONTIER',
     category: 'Sci-Fi Cinematic',
     video: spaceVid,
-    description: 'A cosmic journey through the depths of distant star systems.',
+    poster: spacePoster,
+    description: 'A cosmic journey through distant star systems and celestial landscapes.',
   },
   {
     id: 6,
-    title: 'RHYTHM & LIGHT',
+    title: 'RHYTHM & SPECTRA',
     category: 'Motion Graphics',
     video: visualizerVid,
-    description: 'Interactive audio-reactive visuals for immersive experiences.',
+    poster: visualizerPoster,
+    description: 'Audio-reactive abstract visuals designed for immersive digital experiences.',
   },
 ];
 

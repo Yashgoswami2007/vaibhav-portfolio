@@ -106,15 +106,10 @@ const GlobalBackground = ({ scrollContainerRef, onLoadComplete }: GlobalBackgrou
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
     const drawFrame = (frameIdx: number) => {
-      const clampedIndex = Math.max(0, Math.min(Math.floor(frameIdx), sortedFramePaths.length - 1));
+      // Handle potential NaN if scroll container isn't fully measured yet
+      const validFrameIdx = isNaN(frameIdx) ? 0 : frameIdx;
+      const clampedIndex = Math.max(0, Math.min(Math.floor(validFrameIdx), sortedFramePaths.length - 1));
       const img = imagesRef.current[clampedIndex];
 
       // If the image isn't loaded yet, try to find the nearest previous loaded frame
@@ -155,6 +150,16 @@ const GlobalBackground = ({ scrollContainerRef, onLoadComplete }: GlobalBackgrou
       ctx.imageSmoothingQuality = 'medium'; // Balanced performance
       ctx.drawImage(displayImg, offsetX, offsetY, drawWidth, drawHeight);
     };
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      // Re-draw immediately after resize, as changing canvas metrics clears it
+      drawFrame(frameIndex.get());
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
     const unsubscribe = frameIndex.on('change', (latest) => {
       drawFrame(latest);

@@ -88,19 +88,20 @@ const projects = [
   },
 ];
 
-const ProjectVideo = ({ src, isHovered, poster }: { src: string; isHovered: boolean; poster?: string }) => {
+const ProjectVideo = ({ src, poster }: { src: string; poster?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const isInView = useInView(videoRef, { amount: 0.5 });
 
   useEffect(() => {
     if (videoRef.current) {
-      if (isHovered) {
+      if (isInView) {
         videoRef.current.play().catch((err) => console.log("Video play failed:", err));
       } else {
         videoRef.current.pause();
         videoRef.current.currentTime = 0;
       }
     }
-  }, [isHovered]);
+  }, [isInView]);
 
   return (
     <video
@@ -165,7 +166,6 @@ const ProjectsSection = () => {
               {/* Video Component */}
               <ProjectVideo
                 src={project.video}
-                isHovered={hoveredProject === project.id}
                 poster={project.poster}
               />
 

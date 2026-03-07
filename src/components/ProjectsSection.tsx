@@ -91,6 +91,8 @@ const projects = [
 const ProjectVideo = ({ src, poster }: { src: string; poster?: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isInView = useInView(videoRef, { amount: 0.5 });
+  const [isWaiting, setIsWaiting] = useState(false);
+  const [bufferProgress, setBufferProgress] = useState(0);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -103,18 +105,61 @@ const ProjectVideo = ({ src, poster }: { src: string; poster?: string }) => {
     }
   }, [isInView]);
 
+  const handleProgress = () => {
+    if (videoRef.current && videoRef.current.duration > 0) {
+      const buffered = videoRef.current.buffered;
+      if (buffered.length > 0) {
+        const progress = (buffered.end(buffered.length - 1) / videoRef.current.duration) * 100;
+        setBufferProgress(progress);
+      }
+    }
+  };
+
   return (
-    <video
-      ref={videoRef}
-      src={src}
-      poster={poster}
-      muted
-      loop
-      playsInline
-      className="absolute inset-0 w-full h-full object-cover"
-    />
+    <div className="absolute inset-0 w-full h-full">
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        muted
+        loop
+        playsInline
+        onWaiting={() => setIsWaiting(true)}
+        onPlaying={() => setIsWaiting(false)}
+        onProgress={handleProgress}
+        onLoadedMetadata={handleProgress}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Sleek, simple loading bar */}
+      <AnimatePresence>
+        {(isWaiting || bufferProgress < 100) && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute top-0 left-0 w-full h-[2px] z-10 overflow-hidden bg-background/20 backdrop-blur-sm"
+          >
+            <motion.div
+              className="h-full bg-accent shadow-[0_0_8px_rgba(245,158,11,0.5)]"
+              initial={{ width: "0%" }}
+              animate={{ width: `${bufferProgress}%` }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            />
+            {isWaiting && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent w-1/3 h-full"
+                animate={{ x: ["-100%", "300%"] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+              />
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
+
 
 const ProjectsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);

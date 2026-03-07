@@ -1,21 +1,19 @@
-# Cinematic Canvas - Portfolio
+# Cinematic Canvas
 
-A premium 3D artist portfolio showcasing cinematic visualizations, environment design, and product rendering.
+A stunning, highly-optimized portfolio website for showcasing cinematic projects. 
 
-## Tech Stack
-- React
-- Vite
-- Framer Motion
-- Tailwind CSS
-- Lucide React
+## Features
+- **Immersive Background**: High-performance image-sequence background optimized with WebP format and progressive loading.
+- **Sleek Video Integration**: Premium project video player with a minimalist loading bar and smooth thumbnail cross-fading.
+- **Modern Tech Stack**: Built with React, Vite, Tailwind CSS, and Framer Motion.
 
 ## Getting Started
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Run the development server: `npm run dev`
-
-## Deployment
-
-Build the project: `npm run build`
-The output will be in the `dist` folder.
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```

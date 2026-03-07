@@ -93,6 +93,7 @@ const ProjectVideo = ({ src, poster }: { src: string; poster?: string }) => {
   const isInView = useInView(videoRef, { amount: 0.5 });
   const [isWaiting, setIsWaiting] = useState(false);
   const [bufferProgress, setBufferProgress] = useState(0);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -101,6 +102,7 @@ const ProjectVideo = ({ src, poster }: { src: string; poster?: string }) => {
       } else {
         videoRef.current.pause();
         videoRef.current.currentTime = 0;
+        setIsVideoReady(false); // Reset on exit
       }
     }
   }, [isInView]);
@@ -117,6 +119,7 @@ const ProjectVideo = ({ src, poster }: { src: string; poster?: string }) => {
 
   return (
     <div className="absolute inset-0 w-full h-full">
+      {/* Video element */}
       <video
         ref={videoRef}
         src={src}
@@ -125,15 +128,31 @@ const ProjectVideo = ({ src, poster }: { src: string; poster?: string }) => {
         loop
         playsInline
         onWaiting={() => setIsWaiting(true)}
-        onPlaying={() => setIsWaiting(false)}
+        onPlaying={() => {
+          setIsWaiting(false);
+          setIsVideoReady(true);
+        }}
         onProgress={handleProgress}
         onLoadedMetadata={handleProgress}
         className="absolute inset-0 w-full h-full object-cover"
       />
 
+      {/* Thumbnail overlay - fades out when video is ready */}
+      {poster && (
+        <motion.img
+          src={poster}
+          alt=""
+          role="presentation"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: isVideoReady ? 0 : 1 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="absolute inset-0 w-full h-full object-cover z-[1] pointer-events-none"
+        />
+      )}
+
       {/* Sleek, simple loading bar */}
       <AnimatePresence>
-        {(isWaiting || bufferProgress < 100) && (
+        {(isWaiting || bufferProgress < 20) && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

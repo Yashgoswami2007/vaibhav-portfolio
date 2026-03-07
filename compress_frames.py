@@ -50,6 +50,7 @@ def compress_images(directory, reduction_ratio=0.8, target_width=None):
         except Exception as e:
             print(f"Failed to optimize {filename}: {e}")
 
+#made little little changes
 if __name__ == "__main__":
     # Adjust path to your assets/frames folder
     target_folder = r"src/assets/frames"

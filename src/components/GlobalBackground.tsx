@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useScroll, useTransform } from 'framer-motion';
 
 // Import all frames using Vite's glob import
-// For images, Vite returns modules with a default export that is the URL
-const frameModules = import.meta.glob('@/assets/frames/*.jpg', {
+// We switched from JPG to WebP for 60% smaller file sizes
+const frameModules = import.meta.glob('@/assets/frames/*.webp', {
   eager: true
 }) as Record<string, { default: string }>;
 
@@ -14,13 +14,16 @@ const sortedFramePaths = Object.entries(frameModules)
     url: (module as { default: string }).default
   }))
   .sort((a, b) => {
-    const aMatch = a.path.match(/frame_(\d+)\.jpg$/);
-    const bMatch = b.path.match(/frame_(\d+)\.jpg$/);
+    const aMatch = a.path.match(/frame_(\d+)\.webp$/);
+    const bMatch = b.path.match(/frame_(\d+)\.webp$/);
     const aNum = aMatch ? parseInt(aMatch[1], 10) : 0;
     const bNum = bMatch ? parseInt(bMatch[1], 10) : 0;
     return aNum - bNum;
   })
   .map(({ url }) => url);
+
+// Critical frames required before hiding the loading screen
+const CRITICAL_FRAMES_COUNT = 20;
 
 interface GlobalBackgroundProps {
   scrollContainerRef: React.RefObject<HTMLDivElement>;
@@ -48,44 +51,61 @@ const GlobalBackground = ({ scrollContainerRef, onLoadComplete }: GlobalBackgrou
 
   // Preload all images
   useEffect(() => {
-    const loadImages = async () => {
-      const imagePromises: Promise<HTMLImageElement>[] = [];
+    let loadedCount = 0;
+    const totalFrames = sortedFramePaths.length;
 
-      sortedFramePaths.forEach((framePath, index) => {
-        const promise = new Promise<HTMLImageElement>((resolve, reject) => {
+    const loadImages = async () => {
+      // Create a pool of image elements
+      imagesRef.current = new Array(totalFrames);
+
+      const promises = sortedFramePaths.map((framePath, index) => {
+        return new Promise<void>((resolve) => {
           const img = new Image();
           img.crossOrigin = 'anonymous';
           img.onload = () => {
-            setLoadingProgress((prev) => prev + 1);
-            resolve(img);
+            imagesRef.current[index] = img;
+            loadedCount++;
+            setLoadingProgress(loadedCount);
+
+            // If we've reached the critical threshold, allow the site to be interactive
+            if (loadedCount === CRITICAL_FRAMES_COUNT && !isLoaded) {
+              setIsLoaded(true);
+              if (onLoadComplete) onLoadComplete();
+            }
+
+            // If all images are loaded, ensure isLoaded is true even if threshold was higher
+            if (loadedCount === totalFrames && !isLoaded) {
+              setIsLoaded(true);
+              if (onLoadComplete) onLoadComplete();
+            }
+
+            resolve();
           };
-          img.onerror = reject;
+          img.onerror = () => {
+            console.error(`Failed to load frame: ${framePath}`);
+            loadedCount++; // Count as "processed" to avoid blocking indefinitely
+            resolve();
+          };
           img.src = framePath;
         });
-        imagePromises.push(promise);
       });
 
-      try {
-        imagesRef.current = await Promise.all(imagePromises);
-        setIsLoaded(true);
-        if (onLoadComplete) onLoadComplete();
-      } catch (error) {
-        console.error('Error loading frames:', error);
-      }
+      // We don't await Promise.all(promises) because we want to setIsLoaded early
+      // but we still want the browser to keep downloading in the background.
     };
 
     loadImages();
-  }, []);
+  }, [onLoadComplete]);
 
   // Update canvas based on scroll position
   useEffect(() => {
-    if (!isLoaded || !canvasRef.current) return;
+    // We allow drawing even if not "fully" loaded, as long as we have the first 20 frames
+    if (!canvasRef.current) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -93,17 +113,27 @@ const GlobalBackground = ({ scrollContainerRef, onLoadComplete }: GlobalBackgrou
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Draw current frame
     const drawFrame = (frameIdx: number) => {
-      const clampedIndex = Math.max(0, Math.min(Math.floor(frameIdx), imagesRef.current.length - 1));
+      const clampedIndex = Math.max(0, Math.min(Math.floor(frameIdx), sortedFramePaths.length - 1));
       const img = imagesRef.current[clampedIndex];
-      if (!img) return;
 
-      // Clear canvas
+      // If the image isn't loaded yet, try to find the nearest previous loaded frame
+      // to avoid flickering/blanks during background loading
+      let displayImg = img;
+      if (!displayImg) {
+        for (let i = clampedIndex - 1; i >= 0; i--) {
+          if (imagesRef.current[i]) {
+            displayImg = imagesRef.current[i];
+            break;
+          }
+        }
+      }
+
+      if (!displayImg) return;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Calculate scaling to cover entire canvas while maintaining aspect ratio
-      const imgAspect = img.width / img.height;
+      const imgAspect = displayImg.width / displayImg.height;
       const canvasAspect = canvas.width / canvas.height;
 
       let drawWidth = canvas.width;
@@ -112,32 +142,26 @@ const GlobalBackground = ({ scrollContainerRef, onLoadComplete }: GlobalBackgrou
       let offsetY = 0;
 
       if (imgAspect > canvasAspect) {
-        // Image is wider - fit to height
         drawHeight = canvas.height;
         drawWidth = drawHeight * imgAspect;
         offsetX = (canvas.width - drawWidth) / 2;
       } else {
-        // Image is taller - fit to width
         drawWidth = canvas.width;
         drawHeight = drawWidth / imgAspect;
         offsetY = (canvas.height - drawHeight) / 2;
       }
 
-      // Draw image with smooth scaling
       ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      ctx.imageSmoothingQuality = 'medium'; // Balanced performance
+      ctx.drawImage(displayImg, offsetX, offsetY, drawWidth, drawHeight);
     };
 
-    // Subscribe to frame index changes
     const unsubscribe = frameIndex.on('change', (latest) => {
       drawFrame(latest);
     });
 
-    // Initial draw
-    drawFrame(0);
+    drawFrame(frameIndex.get());
 
-    // Cleanup
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       unsubscribe();
@@ -146,21 +170,21 @@ const GlobalBackground = ({ scrollContainerRef, onLoadComplete }: GlobalBackgrou
 
   return (
     <div className="fixed inset-0 pointer-events-none">
-      {/* Loading overlay */}
+      {/* Loading overlay - only show until critical frames are loaded */}
       {!isLoaded && (
         <div className="fixed inset-0 bg-background z-[1] flex items-center justify-center">
           <div className="text-center">
             <div className="text-muted-foreground text-sm mb-2">
-              loading experience
+              initializing cinematic world
             </div>
             <div className="w-64 h-1 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-primary transition-all duration-300"
-                style={{ width: `${(loadingProgress / sortedFramePaths.length) * 100}%` }}
+                style={{ width: `${Math.min((loadingProgress / CRITICAL_FRAMES_COUNT) * 100, 100)}%` }}
               />
             </div>
             <div className="text-muted-foreground text-xs mt-2">
-              {loadingProgress} / {sortedFramePaths.length}
+              {Math.min(loadingProgress, CRITICAL_FRAMES_COUNT)} / {CRITICAL_FRAMES_COUNT}
             </div>
           </div>
         </div>
@@ -171,15 +195,15 @@ const GlobalBackground = ({ scrollContainerRef, onLoadComplete }: GlobalBackgrou
         ref={canvasRef}
         className="fixed inset-0 w-full h-full object-cover z-0"
         style={{
-          opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.5s ease-in-out',
+          opacity: loadingProgress > 0 ? 1 : 0,
+          transition: 'opacity 0.8s ease-in-out',
         }}
       />
 
-      {/* Overlay gradient for better text readability */}
       <div className="fixed inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/40 pointer-events-none z-[1]" />
     </div>
   );
 };
 
 export default GlobalBackground;
+
